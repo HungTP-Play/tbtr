@@ -97,6 +97,8 @@ O (1) < O (log n) < O (n) < O (n log n) < O (n^2) < O (n^3) < O (2^n) < O (n!)
 
 ### Space Complexity - Big Theta
 
+Space Complexity, or Big Theta, is a measure of the amount of memory that an algorithm uses to store the input and output of the algorithm.
+
 ## Datastructure
 
 ### Array
