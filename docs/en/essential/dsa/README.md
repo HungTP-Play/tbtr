@@ -9,51 +9,46 @@
     - [Space Complexity - Big Theta](#space-complexity---big-theta)
   - [Datastructure](#datastructure)
     - [Array](#array)
-    - [List](#list)
+    - [Linked List](#linked-list)
       - [Concept](#concept)
       - [Use Cases](#use-cases)
       - [Operations](#operations)
       - [Props/Cons Trade-off](#propscons-trade-off)
-    - [Linked List](#linked-list)
+    - [Hash Table](#hash-table)
       - [Concept](#concept-1)
       - [Use Cases](#use-cases-1)
       - [Operations](#operations-1)
       - [Props/Cons Trade-off](#propscons-trade-off-1)
-    - [Hash Table](#hash-table)
+    - [Hash Map](#hash-map)
       - [Concept](#concept-2)
       - [Use Cases](#use-cases-2)
       - [Operations](#operations-2)
       - [Props/Cons Trade-off](#propscons-trade-off-2)
-    - [Hash Map](#hash-map)
+    - [Stack](#stack)
       - [Concept](#concept-3)
       - [Use Cases](#use-cases-3)
       - [Operations](#operations-3)
       - [Props/Cons Trade-off](#propscons-trade-off-3)
-    - [Stack](#stack)
+    - [Queue](#queue)
       - [Concept](#concept-4)
       - [Use Cases](#use-cases-4)
       - [Operations](#operations-4)
       - [Props/Cons Trade-off](#propscons-trade-off-4)
-    - [Queue](#queue)
+    - [Tree](#tree)
       - [Concept](#concept-5)
       - [Use Cases](#use-cases-5)
       - [Operations](#operations-5)
       - [Props/Cons Trade-off](#propscons-trade-off-5)
-    - [Tree](#tree)
+    - [Graph](#graph)
       - [Concept](#concept-6)
       - [Use Cases](#use-cases-6)
       - [Operations](#operations-6)
       - [Props/Cons Trade-off](#propscons-trade-off-6)
-    - [Graph](#graph)
+    - [Trie](#trie)
       - [Concept](#concept-7)
       - [Use Cases](#use-cases-7)
       - [Operations](#operations-7)
       - [Props/Cons Trade-off](#propscons-trade-off-7)
-    - [Trie](#trie)
-      - [Concept](#concept-8)
-      - [Use Cases](#use-cases-8)
-      - [Operations](#operations-8)
-      - [Props/Cons Trade-off](#propscons-trade-off-8)
   - [Algorithms](#algorithms)
     - [Search Algorithms](#search-algorithms)
       - [Linear Search](#linear-search)
@@ -135,17 +130,54 @@ An array is a fundamental data structure that stores a fixed-size, sequential co
 
 Arrays offer efficient random access but lack flexibility for insertions and deletions in the middle. Consider alternatives like linked lists if frequent insertions/deletions are crucial. However, linked lists have slower random access compared to arrays.
 
-### List
+**How array stores data in memory:**
 
-#### Concept
-
-#### Use Cases
-
-#### Operations
-
-#### Props/Cons Trade-off
+![How array stores data in memory](images/dsa/array.png)
 
 ### Linked List
+
+**Concept:**
+
+A linked list is a linear data structure where elements, called nodes, are not stored contiguously in memory. Each node contains two parts:
+
+1. **Data:** The actual information stored in the node (e.g., a number, a string, an object).
+2. **Next pointer:** A reference (link) that points to the next node in the sequence. This pointer tells the program where to find the next element in the list.  
+
+Imagine a train with cars linked together. Each car (node) holds cargo (data) and has a hitch (next pointer) that connects it to the next car in the line. Unlike arrays, linked lists don't rely on physical memory location for order, but on these pointers to establish the sequence.
+
+**Use Cases:**
+
+* **Dynamic data sets:** Linked lists are ideal for collections where the size is unknown beforehand or changes frequently.  Since elements don't need to be shifted to accommodate insertions or deletions, they excel in these scenarios.
+* **Implementing other data structures:** Linked lists serve as building blocks for more complex data structures like stacks, queues, and some graph implementations.
+
+**Operations:**
+
+* **Access:** Unlike arrays with direct index-based retrieval, accessing elements in a linked list requires traversing the list, starting from the head (the first node) and following the next pointers until the target element is found. This has a linear time complexity of O(n) in the worst case.
+* **Modification:** Updating the data within a node itself is a simple operation.
+* **Insertion:**  Inserting a new node at a specific position is generally faster than arrays, especially for insertions at the head or tail. The time complexity can be constant (O(1)) for head/tail insertions.
+* **Deletion:** Removing a node is also efficient compared to arrays for non-head/tail deletions. However, finding the node to delete requires traversal, leading to a worst-case time complexity of O(n). 
+* **Search:** Similar to access, searching for a specific element involves traversing the list, resulting in a linear time complexity of O(n) in the worst case.
+
+**Pros & Cons (Trade-offs):**
+
+**Pros:**
+
+* **Dynamic size:** The size of a linked list can grow or shrink as needed, making it adaptable to changing data requirements.
+* **Efficient insertions/deletions:** Adding or removing elements is generally faster than arrays, especially for insertions/deletions in the middle of the list.
+* **No wasted space:** Memory is allocated only for the nodes themselves, reducing wasted space compared to arrays with unused elements.
+
+**Cons:**
+
+* **Slower random access:**  Since access relies on traversing the list, finding a specific element by its position (like you can with an index in an array) is slower.
+* **More complex memory management:** Using pointers introduces overhead for managing memory references.
+
+**Trade-offs:**
+
+Linked lists shine when insertions/deletions are frequent operations, and the order of elements is more important than random access speed. However, if fast retrieval by index is crucial and the size is fixed, arrays are a better choice.
+
+**How Linked List stores data in memory**
+
+![How Linked List stores data in memory](images/dsa/linkedlist.png)
 
 #### Concept
 
