@@ -6,7 +6,7 @@
   - [Content](#content)
   - [Complexity](#complexity)
     - [Time Complexity - Big O](#time-complexity---big-o)
-    - [Time Complexity - Big Theta](#time-complexity---big-theta)
+    - [Space Complexity - Big Theta](#space-complexity---big-theta)
   - [Datastructure](#datastructure)
     - [Array](#array)
       - [Concept](#concept)
@@ -75,7 +75,27 @@
 
 ### Time Complexity - Big O
 
-### Time Complexity - Big Theta
+Time Complexity, or Big O, is a measure of the rate of growth of an algorithm time spend when the input size increases.
+
+Some common time complexity:
+
+- Constant time complexity: O(1) -> *The input size does not affect the time it takes to execute the algorithm.*
+- Linear time complexity: O(n) -> *If you add n items to your input, the algorithm will also increase n units of time*
+- Parabolic time complexity: O(n^2) -> *If you add n items to your input, the algorithm will also increase n^2 units of time*
+- Quadratic time complexity: O(n^3) -> *If you add n items to your input, the algorithm will also increase n^3 units of time*
+- Exponential time complexity: O(2^n) -> *If you add n items to your input, the algorithm will also increase 2^n units of time*
+- Logarithmic time complexity: O(log n) -> *If you add n items to your input, the algorithm will also increase log n units of time*
+- Factorial time complexity: O(n!) -> *If you add n items to your input, the algorithm will also increase n! units of time*
+- Polynomial time complexity: O(n^k) -> *If you add n items to your input, the algorithm will also increase n^k units of time*
+- O (n log n) time complexity: O(n log n) -> *If you add n items to your input, the algorithm will also increase n log n units of time*
+
+> Log n mean the log2 of n.
+
+**Time Complexity - Efficiency - From More Efficient to Less Efficient**
+
+O (1) < O (log n) < O (n) < O (n log n) < O (n^2) < O (n^3) < O (2^n) < O (n!)
+
+### Space Complexity - Big Theta
 
 ## Datastructure
 
