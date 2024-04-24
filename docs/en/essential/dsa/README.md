@@ -9,55 +9,51 @@
     - [Space Complexity - Big Theta](#space-complexity---big-theta)
   - [Datastructure](#datastructure)
     - [Array](#array)
+    - [List](#list)
       - [Concept](#concept)
       - [Use Cases](#use-cases)
       - [Operations](#operations)
       - [Props/Cons Trade-off](#propscons-trade-off)
-    - [List](#list)
+    - [Linked List](#linked-list)
       - [Concept](#concept-1)
       - [Use Cases](#use-cases-1)
       - [Operations](#operations-1)
       - [Props/Cons Trade-off](#propscons-trade-off-1)
-    - [Linked List](#linked-list)
+    - [Hash Table](#hash-table)
       - [Concept](#concept-2)
       - [Use Cases](#use-cases-2)
       - [Operations](#operations-2)
       - [Props/Cons Trade-off](#propscons-trade-off-2)
-    - [Hash Table](#hash-table)
+    - [Hash Map](#hash-map)
       - [Concept](#concept-3)
       - [Use Cases](#use-cases-3)
       - [Operations](#operations-3)
       - [Props/Cons Trade-off](#propscons-trade-off-3)
-    - [Hash Map](#hash-map)
+    - [Stack](#stack)
       - [Concept](#concept-4)
       - [Use Cases](#use-cases-4)
       - [Operations](#operations-4)
       - [Props/Cons Trade-off](#propscons-trade-off-4)
-    - [Stack](#stack)
+    - [Queue](#queue)
       - [Concept](#concept-5)
       - [Use Cases](#use-cases-5)
       - [Operations](#operations-5)
       - [Props/Cons Trade-off](#propscons-trade-off-5)
-    - [Queue](#queue)
+    - [Tree](#tree)
       - [Concept](#concept-6)
       - [Use Cases](#use-cases-6)
       - [Operations](#operations-6)
       - [Props/Cons Trade-off](#propscons-trade-off-6)
-    - [Tree](#tree)
+    - [Graph](#graph)
       - [Concept](#concept-7)
       - [Use Cases](#use-cases-7)
       - [Operations](#operations-7)
       - [Props/Cons Trade-off](#propscons-trade-off-7)
-    - [Graph](#graph)
+    - [Trie](#trie)
       - [Concept](#concept-8)
       - [Use Cases](#use-cases-8)
       - [Operations](#operations-8)
       - [Props/Cons Trade-off](#propscons-trade-off-8)
-    - [Trie](#trie)
-      - [Concept](#concept-9)
-      - [Use Cases](#use-cases-9)
-      - [Operations](#operations-9)
-      - [Props/Cons Trade-off](#propscons-trade-off-9)
   - [Algorithms](#algorithms)
     - [Search Algorithms](#search-algorithms)
       - [Linear Search](#linear-search)
@@ -103,33 +99,41 @@ Space Complexity, or Big Theta, is a measure of the amount of memory that an alg
 
 ### Array
 
-#### Concept
+**Concept:**
 
-Array is a **fixed size** data structure that stores values in a **contiguous block of memory**. Once the array is created, you can access and modify the values by referring to an index number.
+An array is a fundamental data structure that stores a fixed-size, sequential collection of elements of the same data type. Each element in an array has a unique index (position), starting from 0, that allows direct access to its value. Think of it as a numbered list where all the elements are stored contiguously in memory.
 
-Array items will be indexed **starting from 0**. The annotation A[0] represents the first element of the array, A[1] represents the second element, and so on.
+**Use Cases:**
 
-When you create an array, the address of the first element is returned.
+* **Storing homogeneous data sets**: Arrays are ideal for storing collections of similar data types, like lists of numbers, student grades, or product prices.
+* **Implementing other data structures**: Arrays are the building blocks for more complex data structures like stacks, queues, and some types of trees.
+* **Random access**: Since elements are stored contiguously, accessing any element by its index is very efficient. This makes them suitable for scenarios where you need to frequently retrieve specific elements from the collection.
 
-In many programming languages, arrays are implemented as pointers. So it will **pass-by-reference** by default.
+**Operations:**
 
-**The elements of the array are required to have the same data type.**
+* **Access:** Retrieving the value of an element at a specific index (constant time complexity - O(1) on average).
+* **Modification:** Updating the value of an element at a specific index (constant time complexity).
+* **Insertion:** Adding a new element at a specific index (shifting elements can be expensive, O(n) in worst case).
+* **Deletion:** Removing an element at a specific index (shifting elements can be expensive, O(n) in worst case).
+* **Search:** Linear search for a specific element (linear time complexity - O(n) in worst case).
 
-#### Use Cases
+**Pros & Cons (Trade-offs):**
 
-- To store a collection of data when the size is known (or guess) and all items have the same data type.
+**Pros:**
 
-#### Operations
+* **Simple and efficient for random access:** Retrieving elements by index is very fast.
+* **Memory efficient:** Elements are stored contiguously in memory, minimizing wasted space.
+* **Fixed size:** Knowing the size upfront allows for efficient memory allocation.
 
-- Access an element: O(1) - Both read and write operations are O(1).
+**Cons:**
 
-#### Props/Cons Trade-off
+* **Fixed size:**  The size of an array cannot be changed after creation.
+* **Inefficient insertions/deletions:** Inserting or deleting elements in the middle can be slow because it requires shifting other elements.
+* **Limited data type:** All elements must be of the same data type.
 
-- Props:
-  - Access operation has constant time complexity
-- Cons:
-  - Fixed size
-  - Require to have the same data type
+**Trade-offs:**
+
+Arrays offer efficient random access but lack flexibility for insertions and deletions in the middle. Consider alternatives like linked lists if frequent insertions/deletions are crucial. However, linked lists have slower random access compared to arrays.
 
 ### List
 
