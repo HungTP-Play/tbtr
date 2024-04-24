@@ -30,7 +30,7 @@ Whether you're a seasoned developer or just starting your journey, this reposito
     - [III. Distributed Systems \& Security](#iii-distributed-systems--security)
     - [IV. Leadership \& Communication Skills](#iv-leadership--communication-skills)
     - [V. Emerging Trends \& Architectures](#v-emerging-trends--architectures)
-  - [Bonus Section: Emerging Trends \& Technologies \& Carrer Advices\*\*](#bonus-section-emerging-trends--technologies--carrer-advices)
+  - [Bonus Section: Emerging Trends \& Technologies \& Carrer Advices](#bonus-section-emerging-trends--technologies--carrer-advices)
 
 
 ## I. Foundational Concepts (Essential for all levels)
@@ -101,4 +101,4 @@ Whether you're a seasoned developer or just starting your journey, this reposito
 * **Reactive Systems Architecture:** Designing responsive and resilient systems based on reactive principles
 * **Artificial Intelligence & Machine Learning in Architecture:**  Leveraging AI/ML for tasks like performance optimization and anomaly detection
 
-## Bonus Section: Emerging Trends & Technologies & Carrer Advices**
+## Bonus Section: Emerging Trends & Technologies & Carrer Advices
