@@ -52,6 +52,7 @@ Whether you're a seasoned developer or just starting your journey, this reposito
 * **Clean Code Practices:** Readability, Maintainability, Efficiency,...
 * **API Design & Integration**
 * **Language Specific Concepts**
+* **More Datatructure & Algorithms**
 
 ## III. Advanced Topics (For experienced developers)
 
