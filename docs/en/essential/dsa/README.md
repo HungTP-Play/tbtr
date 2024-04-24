@@ -11,40 +11,31 @@
     - [Array](#array)
     - [Linked List](#linked-list)
     - [Hash Table](#hash-table)
+    - [Stack](#stack)
       - [Concept](#concept)
       - [Use Cases](#use-cases)
       - [Operations](#operations)
       - [Props/Cons Trade-off](#propscons-trade-off)
-    - [Hash Map](#hash-map)
+    - [Queue](#queue)
       - [Concept](#concept-1)
       - [Use Cases](#use-cases-1)
       - [Operations](#operations-1)
       - [Props/Cons Trade-off](#propscons-trade-off-1)
-    - [Stack](#stack)
+    - [Tree](#tree)
       - [Concept](#concept-2)
       - [Use Cases](#use-cases-2)
       - [Operations](#operations-2)
       - [Props/Cons Trade-off](#propscons-trade-off-2)
-    - [Queue](#queue)
+    - [Graph](#graph)
       - [Concept](#concept-3)
       - [Use Cases](#use-cases-3)
       - [Operations](#operations-3)
       - [Props/Cons Trade-off](#propscons-trade-off-3)
-    - [Tree](#tree)
+    - [Trie](#trie)
       - [Concept](#concept-4)
       - [Use Cases](#use-cases-4)
       - [Operations](#operations-4)
       - [Props/Cons Trade-off](#propscons-trade-off-4)
-    - [Graph](#graph)
-      - [Concept](#concept-5)
-      - [Use Cases](#use-cases-5)
-      - [Operations](#operations-5)
-      - [Props/Cons Trade-off](#propscons-trade-off-5)
-    - [Trie](#trie)
-      - [Concept](#concept-6)
-      - [Use Cases](#use-cases-6)
-      - [Operations](#operations-6)
-      - [Props/Cons Trade-off](#propscons-trade-off-6)
   - [Algorithms](#algorithms)
     - [Search Algorithms](#search-algorithms)
       - [Linear Search](#linear-search)
@@ -334,23 +325,51 @@ func (l *LinkedList[T]) String() string {
 
 ### Hash Table
 
-#### Concept
+**Concept:**
 
-#### Use Cases
+A hash table is a data structure that implements an associative array, also known as a dictionary or map. It stores key-value pairs and allows for fast retrieval of values based on their keys. Unlike arrays or linked lists that rely on order or position, hash tables use a hashing function to map keys to unique indexes within a fixed-size array (called a hash table). This mapping allows for near-constant time (average case) lookups for elements. 
 
-#### Operations
+Imagine a library catalog with books categorized by Dewey Decimal System codes (keys). The codes act like unique identifiers for finding specific books (values). A well-designed hash table is like a very efficient librarian who can quickly locate a book (value) based on its Dewey Decimal code (key).
 
-#### Props/Cons Trade-off
+Hash table often uses LinkedList as a backend data structure to store key-value pairs.
 
-### Hash Map
+Typical Hash Table data structure look like
 
-#### Concept
+![Typical Hash Tabl data structure](https://res.cloudinary.com/dmsb4anlx/image/upload/v1713975104/hungtp/aiyunkegh78qdf3eolip.png)
 
-#### Use Cases
+**Use Cases:**
 
-#### Operations
+* **Fast key-value lookups:** Hash tables excel when you need to retrieve data based on a unique identifier (key). This makes them ideal for:
+    * Caching frequently accessed data
+    * Implementing symbol tables in compilers
+    * Representing user accounts in applications (username as key, user data as value)
+    * Network routing (IP addresses as keys, routes as values)
+    * Index in database
 
-#### Props/Cons Trade-off
+**Operations:**
+
+* **Insertion:** Adding a new key-value pair to the hash table.
+* **Deletion:** Removing a key-value pair from the hash table.
+* **Search:** Finding the value associated with a specific key. (Average case constant time - O(1))
+* **Update:** Modifying the value associated with an existing key.
+
+**Pros & Cons (Trade-offs):**
+
+**Pros:**
+
+* **Fast average-case search:**  Retrieving elements by key is very efficient (O(1) on average) due to the hashing function.
+* **Efficient for key-value lookups:** Ideal for scenarios where you need to find data based on unique identifiers.
+* **Dynamic size:** Although the hash table itself has a fixed size, it can be resized to accommodate more elements while maintaining efficiency.
+
+**Cons:**
+
+* **Potential collisions:**  Hash functions might map different keys to the same index (collision). Collision resolution techniques are needed to handle these situations, which can add some overhead.
+* **Slower worst-case search:**  In the worst case (e.g., very bad hash function or overloaded hash table), lookups might become slower.
+* **Wasted space:**  Due to collisions and resizing, some space in the hash table might be unused.
+
+**Trade-offs:**
+
+Hash tables offer exceptional speed for key-value lookups but require careful consideration of **hash function selection and collision resolution techniques**. If the order of elements is not important, and fast retrieval based on unique keys is essential, hash tables are a powerful choice.
 
 ### Stack
 
