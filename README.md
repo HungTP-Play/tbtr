@@ -103,3 +103,7 @@ Whether you're a seasoned developer or just starting your journey, this reposito
 * **Artificial Intelligence & Machine Learning in Architecture:**  Leveraging AI/ML for tasks like performance optimization and anomaly detection
 
 ## Bonus Section: Emerging Trends & Technologies & Carrer Advices
+
+* **Interview Advices & Resources**
+* **Trends**
+* **Technologies**
