@@ -130,28 +130,60 @@ Arrays offer efficient random access but lack flexibility for insertions and del
 
 ![How array stores data in memory](images/dsa/array.png)
 
-**Examples (Golang):**
+**[Example (Golang)]**
 
 ```go
-package main
+// example/go/dsa/array.go
+
+package dsa
 
 import "fmt"
 
-func main() {
-  // Initialize an array with 5 elements
-  arr := [5]int{1,2,3,4,5}
-
-  fmt.Printf("Array[%d]: %v\n", 0, arr[0]) // Output: Array[0]: 1
-
-  for i := 0; i < len(arr); i++ {
-    fmt.Printf("Array[%d]: %v\n", i, arr[i])
-    // Will output: Array[0]: 1, Array[1]: 2, Array[2]: 3, Array[3]: 4, Array[4]: 5
-  }
-
-  // Modify an element
-  arr[0] = 10
-  fmt.Printf("Array[%d]: %v\n", 0, arr[0]) // Output: Array[0]: 10
+type Array[T any] struct {
+	array []T
 }
+
+func NewArray[T any](size int) *Array[T] {
+	return &Array[T]{
+		array: make([]T, size),
+	}
+}
+
+func (a *Array[T]) Get(index int) T {
+	return a.array[index]
+}
+
+func (a *Array[T]) Set(index int, val T) {
+	a.array[index] = val
+}
+
+func (a *Array[T]) Size() int {
+	return len(a.array)
+}
+
+func (a *Array[T]) InsertAt(index int, val T) {
+	for i := a.Size() - 1; i > index; i-- {
+		a.array[i] = a.array[i-1]
+	}
+
+	a.array[index] = val
+}
+
+func (a *Array[T]) DeleteAt(index int) {
+	for i := index; i < a.Size()-1; i++ {
+		a.array[i] = a.array[i+1]
+	}
+}
+
+func (a *Array[T]) String() string {
+	str := "["
+	for _, i := range a.array {
+		str += fmt.Sprintf("%v ", i)
+	}
+	str += "]"
+	return str
+}
+
 ```
 
 ### Linked List
@@ -202,113 +234,102 @@ Linked lists shine when insertions/deletions are frequent operations, and the or
 **Example (Golang):**
 
 ```go
-package main
+// example/go/dsa/linked_list.go
+package dsa
 
 import "fmt"
 
-type Node[T any] struct {
-  data T
-  next *Node[T]
+type Item[T any] struct {
+	Data T
+	Next *Item[T]
 }
 
 type LinkedList[T any] struct {
-  head *Node[T]
-  tail *Node[T]
-  size int
+	head *Item[T]
+	tail *Item[T]
+	size int
 }
 
 func NewLinkedList[T any]() *LinkedList[T] {
-  return &LinkedList[T]{}
+	return &LinkedList[T]{}
 }
 
-// Add a new node to the end of the linked list
-//
-// Time Complexity: O(1)
+// Add an item to the tail of the list
 func (l *LinkedList[T]) Add(data T) {
-  newNode := &Node[T]{data: data}
-  if l.head == nil {
-    l.head = newNode
-    l.tail = newNode
-  }
+	newItem := &Item[T]{
+		Data: data,
+		Next: nil,
+	}
 
-  l.tail.next = newNode
-  l.tail = newNode
+	if l.head == nil {
+		l.head = newItem
+		l.tail = newItem
+	}
 
-  l.size++
+	l.tail.Next = newItem
+	l.tail = newItem
+
+	l.size++
 }
 
-// Add a new node at a specific index
-//
-// Time Complexity: O(n)
 func (l *LinkedList[T]) AddAt(index int, data T) {
-  newNode := &Node[T]{data: data}
+	newItem := &Item[T]{
+		Data: data,
+		Next: nil,
+	}
 
-  if index == 0 {
-    newNode.next = l.head
-    l.head = newNode
-  } else {
-    current := l.head
-    for i := 0; i < index-1; i++ {
-      current = current.next
-    }
-    newNode.next = current.next
-    current.next = newNode
-  }
+	if index >= l.size {
+		l.tail.Next = newItem
+		l.tail = newItem
+	}
 
-  l.size++
+	currentItem := l.head
+
+	for i := 1; i < index; i++ {
+		currentItem = currentItem.Next
+	}
+
+	newItem.Next = currentItem.Next
+	currentItem.Next = newItem
+
+	l.size++
 }
 
-// Remove a node at a specific index
-//
-// Time Complexity: O(n)
+// Remove the last item
+func (l *LinkedList[T]) Remove() {
+	currentItem := l.head
+	for i := 1; i < l.size-1; i++ {
+		currentItem = currentItem.Next
+	}
+
+	currentItem.Next = nil
+	l.size--
+}
+
 func (l *LinkedList[T]) RemoveAt(index int) {
-  if index == 0 {
-    l.head = l.head.next
-  } else {
-    current := l.head
-    for i := 0; i < index-1; i++ {
-      current = current.next
-    }
-    current.next = current.next.next
-  }
+	currentItem := l.head
+	for i := 1; i < index; i++ {
+		currentItem = currentItem.Next
+	}
 
-  l.size--
+	currentItem.Next = currentItem.Next.Next
+	l.size--
 }
 
-// Get the data at a specific index
-//
-// Time Complexity: O(n)
-func (l *LinkedList[T]) Get(index int) T {
-  current := l.head
-  for i := 0; i < index; i++ {
-    current = current.next
-  }
-  return current.data
+func (l *LinkedList[T]) Size() int {
+	return l.size
 }
 
-// Implement the Stringer interface to print the linked list
 func (l *LinkedList[T]) String() string {
-  str := ""
-  current := l.head
-  for current != nil {
-    str += fmt.Sprintf("%v ", current.data)
-    current = current.next
-  }
-  return str
+	str := ""
+	currentItem := l.head
+	for currentItem.Next != nil {
+		str += fmt.Sprintf("%v -> ", currentItem.Data)
+	}
+	str += "nil"
+	return str
 }
 
-func main() {
-  list := NewLinkedList[int]()
-  list.Add(1)
-  list.Add(2)
-  list.Add(3)
-  list.AddAt(1, 4)
-  list.RemoveAt(2)
-  fmt.Println(list.Get(1))
-  // Output: 4
-  fmt.Printf("List: %v\n", list)
-  // Output: 1 4 3
-}
 ```
 
 ### Hash Table
