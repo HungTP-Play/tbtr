@@ -10,45 +10,41 @@
   - [Datastructure](#datastructure)
     - [Array](#array)
     - [Linked List](#linked-list)
+    - [Hash Table](#hash-table)
       - [Concept](#concept)
       - [Use Cases](#use-cases)
       - [Operations](#operations)
       - [Props/Cons Trade-off](#propscons-trade-off)
-    - [Hash Table](#hash-table)
+    - [Hash Map](#hash-map)
       - [Concept](#concept-1)
       - [Use Cases](#use-cases-1)
       - [Operations](#operations-1)
       - [Props/Cons Trade-off](#propscons-trade-off-1)
-    - [Hash Map](#hash-map)
+    - [Stack](#stack)
       - [Concept](#concept-2)
       - [Use Cases](#use-cases-2)
       - [Operations](#operations-2)
       - [Props/Cons Trade-off](#propscons-trade-off-2)
-    - [Stack](#stack)
+    - [Queue](#queue)
       - [Concept](#concept-3)
       - [Use Cases](#use-cases-3)
       - [Operations](#operations-3)
       - [Props/Cons Trade-off](#propscons-trade-off-3)
-    - [Queue](#queue)
+    - [Tree](#tree)
       - [Concept](#concept-4)
       - [Use Cases](#use-cases-4)
       - [Operations](#operations-4)
       - [Props/Cons Trade-off](#propscons-trade-off-4)
-    - [Tree](#tree)
+    - [Graph](#graph)
       - [Concept](#concept-5)
       - [Use Cases](#use-cases-5)
       - [Operations](#operations-5)
       - [Props/Cons Trade-off](#propscons-trade-off-5)
-    - [Graph](#graph)
+    - [Trie](#trie)
       - [Concept](#concept-6)
       - [Use Cases](#use-cases-6)
       - [Operations](#operations-6)
       - [Props/Cons Trade-off](#propscons-trade-off-6)
-    - [Trie](#trie)
-      - [Concept](#concept-7)
-      - [Use Cases](#use-cases-7)
-      - [Operations](#operations-7)
-      - [Props/Cons Trade-off](#propscons-trade-off-7)
   - [Algorithms](#algorithms)
     - [Search Algorithms](#search-algorithms)
       - [Linear Search](#linear-search)
@@ -134,6 +130,30 @@ Arrays offer efficient random access but lack flexibility for insertions and del
 
 ![How array stores data in memory](images/dsa/array.png)
 
+**Examples (Golang):**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  // Initialize an array with 5 elements
+  arr := [5]int{1,2,3,4,5}
+
+  fmt.Printf("Array[%d]: %v\n", 0, arr[0]) // Output: Array[0]: 1
+
+  for i := 0; i < len(arr); i++ {
+    fmt.Printf("Array[%d]: %v\n", i, arr[i])
+    // Will output: Array[0]: 1, Array[1]: 2, Array[2]: 3, Array[3]: 4, Array[4]: 5
+  }
+
+  // Modify an element
+  arr[0] = 10
+  fmt.Printf("Array[%d]: %v\n", 0, arr[0]) // Output: Array[0]: 10
+}
+```
+
 ### Linked List
 
 **Concept:**
@@ -179,13 +199,117 @@ Linked lists shine when insertions/deletions are frequent operations, and the or
 
 ![How Linked List stores data in memory](images/dsa/linkedlist.png)
 
-#### Concept
+**Example (Golang):**
 
-#### Use Cases
+```go
+package main
 
-#### Operations
+import "fmt"
 
-#### Props/Cons Trade-off
+type Node[T any] struct {
+  data T
+  next *Node[T]
+}
+
+type LinkedList[T any] struct {
+  head *Node[T]
+  tail *Node[T]
+  size int
+}
+
+func NewLinkedList[T any]() *LinkedList[T] {
+  return &LinkedList[T]{}
+}
+
+// Add a new node to the end of the linked list
+//
+// Time Complexity: O(1)
+func (l *LinkedList[T]) Add(data T) {
+  newNode := &Node[T]{data: data}
+  if l.head == nil {
+    l.head = newNode
+    l.tail = newNode
+  }
+
+  l.tail.next = newNode
+  l.tail = newNode
+
+  l.size++
+}
+
+// Add a new node at a specific index
+//
+// Time Complexity: O(n)
+func (l *LinkedList[T]) AddAt(index int, data T) {
+  newNode := &Node[T]{data: data}
+
+  if index == 0 {
+    newNode.next = l.head
+    l.head = newNode
+  } else {
+    current := l.head
+    for i := 0; i < index-1; i++ {
+      current = current.next
+    }
+    newNode.next = current.next
+    current.next = newNode
+  }
+
+  l.size++
+}
+
+// Remove a node at a specific index
+//
+// Time Complexity: O(n)
+func (l *LinkedList[T]) RemoveAt(index int) {
+  if index == 0 {
+    l.head = l.head.next
+  } else {
+    current := l.head
+    for i := 0; i < index-1; i++ {
+      current = current.next
+    }
+    current.next = current.next.next
+  }
+
+  l.size--
+}
+
+// Get the data at a specific index
+//
+// Time Complexity: O(n)
+func (l *LinkedList[T]) Get(index int) T {
+  current := l.head
+  for i := 0; i < index; i++ {
+    current = current.next
+  }
+  return current.data
+}
+
+// Implement the Stringer interface to print the linked list
+func (l *LinkedList[T]) String() string {
+  str := ""
+  current := l.head
+  for current != nil {
+    str += fmt.Sprintf("%v ", current.data)
+    current = current.next
+  }
+  return str
+}
+
+func main() {
+  list := NewLinkedList[int]()
+  list.Add(1)
+  list.Add(2)
+  list.Add(3)
+  list.AddAt(1, 4)
+  list.RemoveAt(2)
+  fmt.Println(list.Get(1))
+  // Output: 4
+  fmt.Printf("List: %v\n", list)
+  // Output: 1 4 3
+}
+```
 
 ### Hash Table
 
