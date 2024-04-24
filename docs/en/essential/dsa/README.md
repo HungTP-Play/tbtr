@@ -105,11 +105,31 @@ Space Complexity, or Big Theta, is a measure of the amount of memory that an alg
 
 #### Concept
 
+Array is a **fixed size** data structure that stores values in a **contiguous block of memory**. Once the array is created, you can access and modify the values by referring to an index number.
+
+Array items will be indexed **starting from 0**. The annotation A[0] represents the first element of the array, A[1] represents the second element, and so on.
+
+When you create an array, the address of the first element is returned.
+
+In many programming languages, arrays are implemented as pointers. So it will **pass-by-reference** by default.
+
+**The elements of the array are required to have the same data type.**
+
 #### Use Cases
+
+- To store a collection of data when the size is known (or guess) and all items have the same data type.
 
 #### Operations
 
+- Access an element: O(1) - Both read and write operations are O(1).
+
 #### Props/Cons Trade-off
+
+- Props:
+  - Access operation has constant time complexity
+- Cons:
+  - Fixed size
+  - Require to have the same data type
 
 ### List
 
