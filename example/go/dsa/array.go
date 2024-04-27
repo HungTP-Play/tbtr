@@ -1,48 +1,74 @@
 package dsa
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Array[T any] struct {
-	array []T
+	arr  []T
+	cap  int // The number of elements that the Array can hold
+	size int // The real, number of holding values
 }
 
-func NewArray[T any](size int) *Array[T] {
+func NewArray[T any](initialSize int) *Array[T] {
 	return &Array[T]{
-		array: make([]T, size),
+		arr:  make([]T, initialSize),
+		size: 0,
+		cap:  initialSize,
 	}
-}
-
-func (a *Array[T]) Get(index int) T {
-	return a.array[index]
 }
 
 func (a *Array[T]) Set(index int, val T) {
-	a.array[index] = val
+	a.arr[index] = val
 }
 
-func (a *Array[T]) Size() int {
-	return len(a.array)
+func (a *Array[T]) Get(index int) T {
+	return a.arr[index]
+}
+
+func (a *Array[T]) resize() {
+	newSize := a.cap * 2
+	newArr := make([]T, newSize)
+	copy(newArr, a.arr)
+	a.arr = newArr
+	a.cap = newSize
 }
 
 func (a *Array[T]) InsertAt(index int, val T) {
-	for i := a.Size() - 1; i > index; i-- {
-		a.array[i] = a.array[i-1]
+	if a.size >= a.cap {
+		a.resize()
 	}
 
-	a.array[index] = val
+	for i := a.cap - 1; i > index; i-- {
+		a.arr[i] = a.arr[i-1]
+	}
+
+	a.arr[index] = val
+	a.size++
 }
 
-func (a *Array[T]) DeleteAt(index int) {
-	for i := index; i < a.Size()-1; i++ {
-		a.array[i] = a.array[i+1]
+func (a *Array[T]) RemoveAt(index int) {
+	for i := index; i < a.cap-1; i++ {
+		a.arr[i] = a.arr[i+1]
 	}
+
+	a.size--
+}
+
+func (a *Array[T]) Size() int {
+	return a.size
+}
+
+func (a *Array[T]) Cap() int {
+	return a.cap
 }
 
 func (a *Array[T]) String() string {
 	str := "["
-	for _, i := range a.array {
-		str += fmt.Sprintf("%v ", i)
+	for _, val := range a.arr {
+		str += fmt.Sprintf("%v ", val)
 	}
+
 	str += "]"
 	return str
 }
