@@ -5,101 +5,81 @@ import (
 )
 
 func TestNewLinkedList(t *testing.T) {
-	ll := NewLinkedList[int]()
-	if ll.head != nil || ll.tail != nil || ll.size != 0 {
-		t.Errorf("Expected empty linked list, got head: %v, tail: %v, size: %d", ll.head, ll.tail, ll.size)
+	list := NewLinkedList[int]()
+	if list.Size != 0 {
+		t.Errorf("Expected size to be 0, got %d", list.Size)
+	}
+	if list.head != nil {
+		t.Errorf("Expected head to be nil, got %v", list.head)
+	}
+	if list.tail != nil {
+		t.Errorf("Expected tail to be nil, got %v", list.tail)
 	}
 }
 
-func TestAdd(t *testing.T) {
-	ll := NewLinkedList[int]()
-	ll.Add(1)
-	ll.Add(2)
-	ll.Add(3)
-
+func TestAppend(t *testing.T) {
+	list := NewLinkedList[int]()
+	list.Append(1)
+	list.Append(2)
+	list.Append(3)
 	expected := []int{1, 2, 3}
-	current := ll.head
+	current := list.head
 	for i, val := range expected {
 		if current.Data != val {
-			t.Errorf("Expected value %d at index %d, got %d", val, i, current.Data)
+			t.Errorf("Expected value at index %d to be %d, got %d", i, val, current.Data)
 		}
 		current = current.Next
 	}
-
-	if ll.size != len(expected) {
-		t.Errorf("Expected size %d, got %d", len(expected), ll.size)
+	if list.Size != len(expected) {
+		t.Errorf("Expected size to be %d, got %d", len(expected), list.Size)
 	}
 }
 
-func TestAddAt(t *testing.T) {
-	ll := NewLinkedList[int]()
-	ll.Add(1)
-	ll.Add(3)
-	ll.AddAt(1, 2)
-
+func TestInsertAtLinkedList(t *testing.T) {
+	list := NewLinkedList[int]()
+	list.Append(1)
+	list.Append(3)
+	list.InsertAt(1, 2)
 	expected := []int{1, 2, 3}
-	current := ll.head
+	current := list.head
 	for i, val := range expected {
 		if current.Data != val {
-			t.Errorf("Expected value %d at index %d, got %d", val, i, current.Data)
+			t.Errorf("Expected value at index %d to be %d, got %d", i, val, current.Data)
 		}
 		current = current.Next
 	}
-
-	if ll.size != len(expected) {
-		t.Errorf("Expected size %d, got %d", len(expected), ll.size)
+	if list.Size != len(expected) {
+		t.Errorf("Expected size to be %d, got %d", len(expected), list.Size)
 	}
 }
 
-func TestRemove(t *testing.T) {
-	ll := NewLinkedList[int]()
-	ll.Add(1)
-	ll.Add(2)
-	ll.Add(3)
-	ll.Remove()
-
-	expected := []int{1, 2}
-	current := ll.head
-	for i, val := range expected {
-		if current.Data != val {
-			t.Errorf("Expected value %d at index %d, got %d", val, i, current.Data)
-		}
-		current = current.Next
-	}
-
-	if ll.size != len(expected) {
-		t.Errorf("Expected size %d, got %d", len(expected), ll.size)
-	}
-}
-
-func TestRemoveAt(t *testing.T) {
-	ll := NewLinkedList[int]()
-	ll.Add(1)
-	ll.Add(2)
-	ll.Add(3)
-	ll.RemoveAt(1)
-
+func TestDeleteAt(t *testing.T) {
+	list := NewLinkedList[int]()
+	list.Append(1)
+	list.Append(2)
+	list.Append(3)
+	list.DeleteAt(1)
 	expected := []int{1, 3}
-	current := ll.head
+	current := list.head
 	for i, val := range expected {
 		if current.Data != val {
-			t.Errorf("Expected value %d at index %d, got %d", val, i, current.Data)
+			t.Errorf("Expected value at index %d to be %d, got %d", i, val, current.Data)
 		}
 		current = current.Next
 	}
-
-	if ll.size != len(expected) {
-		t.Errorf("Expected size %d, got %d", len(expected), ll.size)
+	if list.Size != len(expected) {
+		t.Errorf("Expected size to be %d, got %d", len(expected), list.Size)
 	}
 }
 
-func TestSize(t *testing.T) {
-	ll := NewLinkedList[int]()
-	ll.Add(1)
-	ll.Add(2)
-	ll.Add(3)
-
-	if ll.Size() != 3 {
-		t.Errorf("Expected size 3, got %d", ll.Size())
+func TestStringListedList(t *testing.T) {
+	list := NewLinkedList[int]()
+	list.Append(1)
+	list.Append(2)
+	list.Append(3)
+	list.Append(4)
+	expected := "[ 1 -> 2 -> 3 -> 4 -> nil ]"
+	if list.String() != expected {
+		t.Errorf("Expected string representation to be %s, got %s", expected, list.String())
 	}
 }

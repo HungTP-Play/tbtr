@@ -2,93 +2,108 @@ package dsa
 
 import "fmt"
 
-type Item[T any] struct {
+type Node[T any] struct {
 	Data T
-	Next *Item[T]
+	Next *Node[T]
+	Prev *Node[T]
 }
 
 type LinkedList[T any] struct {
-	head *Item[T]
-	tail *Item[T]
-	size int
+	Size int
+	head *Node[T]
+	tail *Node[T]
 }
 
 func NewLinkedList[T any]() *LinkedList[T] {
-	return &LinkedList[T]{}
+	return &LinkedList[T]{Size: 0}
 }
 
-// Add an item to the tail of the list
-func (l *LinkedList[T]) Add(data T) {
-	newItem := &Item[T]{
+func (l *LinkedList[T]) Append(data T) {
+	newNode := &Node[T]{
 		Data: data,
-		Next: nil,
 	}
 
 	if l.head == nil {
-		l.head = newItem
-		l.tail = newItem
+		l.head = newNode
+		l.tail = newNode
+	} else {
+		if l.tail.Prev == nil {
+			l.head.Next = newNode
+			newNode.Prev = l.head
+			l.tail = newNode
+		} else {
+			l.tail.Prev.Next.Next = newNode
+			newNode.Prev = l.tail
+			l.tail = newNode
+		}
 	}
 
-	l.tail.Next = newItem
-	l.tail = newItem
-
-	l.size++
+	l.Size++
 }
 
-func (l *LinkedList[T]) AddAt(index int, data T) {
-	newItem := &Item[T]{
+func (l *LinkedList[T]) InsertAt(index int, data T) {
+	fromStart := index <= (l.Size / 2)
+	newNode := &Node[T]{
 		Data: data,
-		Next: nil,
 	}
 
-	if index >= l.size {
-		l.tail.Next = newItem
-		l.tail = newItem
+	if fromStart {
+		currentNode := l.head
+		for i := 1; i < index; i++ {
+			currentNode = currentNode.Next
+		}
+
+		newNode.Next = currentNode.Next
+		newNode.Prev = currentNode
+
+		currentNode.Next = newNode
+	} else {
+		currentNode := l.tail
+		for i := l.Size - 2; i >= index; i-- {
+			currentNode = currentNode.Prev
+		}
+
+		newNode.Next = currentNode
+		newNode.Prev = currentNode.Prev
+
+		currentNode.Prev.Next = newNode
 	}
 
-	currentItem := l.head
-
-	for i := 1; i < index; i++ {
-		currentItem = currentItem.Next
-	}
-
-	newItem.Next = currentItem.Next
-	currentItem.Next = newItem
-
-	l.size++
+	l.Size++
 }
 
-// Remove the last item
-func (l *LinkedList[T]) Remove() {
-	currentItem := l.head
-	for i := 1; i < l.size-1; i++ {
-		currentItem = currentItem.Next
+func (l *LinkedList[T]) DeleteAt(index int) {
+	fromStart := index <= (l.Size / 2)
+
+	if fromStart {
+		currentNode := l.head
+		for i := 1; i < index; i++ {
+			currentNode = currentNode.Next
+		}
+
+		currentNode.Next = currentNode.Next.Next
+		currentNode.Next.Prev = currentNode
+	} else {
+		currentNode := l.tail
+		for i := l.Size - 2; i >= index; i-- {
+			currentNode = currentNode.Prev
+		}
+
+		currentNode.Prev.Next = currentNode.Next
+		currentNode.Prev.Next.Prev = currentNode.Prev
 	}
 
-	currentItem.Next = nil
-	l.size--
-}
-
-func (l *LinkedList[T]) RemoveAt(index int) {
-	currentItem := l.head
-	for i := 1; i < index; i++ {
-		currentItem = currentItem.Next
-	}
-
-	currentItem.Next = currentItem.Next.Next
-	l.size--
-}
-
-func (l *LinkedList[T]) Size() int {
-	return l.size
+	l.Size--
 }
 
 func (l *LinkedList[T]) String() string {
-	str := ""
-	currentItem := l.head
-	for currentItem.Next != nil {
-		str += fmt.Sprintf("%v -> ", currentItem.Data)
+	str := "[ "
+	currentNode := l.head
+	for currentNode.Next != nil {
+		str += fmt.Sprintf("%v -> ", currentNode.Data)
+		currentNode = currentNode.Next
 	}
-	str += "nil"
+	str += fmt.Sprintf("%v -> ", currentNode.Data)
+	str += "nil ]"
 	return str
 }
